@@ -9,6 +9,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.elworker.MVCMusicStore2.Entities.Album;
@@ -23,6 +24,12 @@ public class StoreManagerController {
 	@Resource(name="albumService")
 	AlbumModel albumModel;
 	
+	/**
+	 * Mapping the list of albums for Store manager page 
+	 * @param model
+	 * @return
+	 */
+	
 	@RequestMapping(value="/", method=RequestMethod.GET)
 	public ModelAndView getStoreManagerPage(ModelMap model){
 		
@@ -33,5 +40,24 @@ public class StoreManagerController {
 		model.put("albumList", albumList);
 		
 		return new ModelAndView("StoreManager", "albumModel", albumModel);
+	}
+	
+	/**
+	 * Mapping the Album Detail for Store manager page
+	 * @param detailsAlbumId
+	 * @param model
+	 * @return
+	 */
+	
+	@RequestMapping(value="/DetailsAlbum", method=RequestMethod.GET)
+	public String getDetailsAlbumPage(@RequestParam("detailsAlbumId") Integer detailsAlbumId, ModelMap model){
+		
+		Album detailsAlbum = albumModel.findAlbumById(detailsAlbumId);
+		
+		model.put("detailsAlbumId", detailsAlbumId);
+		model.put("detailsAlbum", detailsAlbum);
+		
+		return "DetailsAlbum";
+		
 	}
 }
