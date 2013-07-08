@@ -7,13 +7,18 @@ import javax.annotation.Resource;
 //import org.apache.log4j.Logger;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.elworker.MVCMusicStore2.Entities.Album;
+import com.elworker.MVCMusicStore2.Entities.Artist;
+import com.elworker.MVCMusicStore2.Entities.Genre;
 import com.elworker.MVCMusicStore2.Models.AlbumModel;
+import com.elworker.MVCMusicStore2.Models.ArtistModel;
+import com.elworker.MVCMusicStore2.Models.GenreModel;
 
 @Controller
 @RequestMapping("/StoreManager")
@@ -23,6 +28,12 @@ public class StoreManagerController {
 	
 	@Resource(name="albumService")
 	AlbumModel albumModel;
+	
+	@Resource(name="genreService")
+	GenreModel genreModel;
+	
+	@Resource(name="artistService")
+	ArtistModel artistModel;
 	
 	/**
 	 * Mapping the list of albums for Store manager page 
@@ -59,5 +70,49 @@ public class StoreManagerController {
 		
 		return "DetailsAlbum";
 		
+	}
+	
+	@RequestMapping(value="/EditAlbum", method=RequestMethod.GET)
+	public String getEditAlbumPage(@RequestParam("editAlbumId") Integer editAlbumId, ModelMap model) {
+		
+		Album editAlbum = albumModel.findAlbumById(editAlbumId);
+		
+		List<Genre> genreList = genreModel.findAllGenres();
+		List<Artist> artistList = artistModel.findAllArtists();
+		
+		model.addAttribute("genres", genreList);
+		model.addAttribute("artists", artistList);
+		
+		model.addAttribute("selectedGenre", editAlbum.getGenre().getName());
+		model.addAttribute("selectedArtist", editAlbum.getArtist().getName());
+		
+		model.addAttribute("editAlbum", editAlbum);
+		
+		return "EditAlbum";
+	}
+	
+	@RequestMapping(value="/EditAlbum", method=RequestMethod.POST)
+	public String setEditAlbumPage(@RequestParam("albumArtUrl") String albumarturl, @RequestParam("price") String price, @RequestParam("title") String txtTitle, 
+			         			   @RequestParam("genreSelected") Integer genreSelected, @RequestParam("artistSelected") Integer artistSelected, 
+			         			   @RequestParam("editAlbumId") Integer editAlbumId, @ModelAttribute("editAlbum") Album editAlbum) {
+		
+		Integer albumId = editAlbumId;
+		Album myAlbum = albumModel.findAlbumById(albumId);
+		
+		Genre newGenre = genreModel.findGenreById(genreSelected);
+		myAlbum.setGenre(newGenre);
+		
+		myAlbum.setTitle(txtTitle);
+		Artist newArtist = artistModel.findGenreById(artistSelected);
+		
+		myAlbum.setArtist(newArtist);
+		
+		myAlbum.setPrice(Double.parseDouble(price));
+		
+		myAlbum.setAlbumArtUrl(albumarturl);
+		
+		albumModel.edit(myAlbum);
+		
+		return "redirect:";
 	}
 }

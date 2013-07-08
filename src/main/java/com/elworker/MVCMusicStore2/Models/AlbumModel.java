@@ -48,4 +48,17 @@ public class AlbumModel {
 		
 		return (Album) q.getSingleResult();
 	}
+	
+	@Transactional
+	public void edit(Album album) {
+		Album newAlbum = findAlbumById(album.getAlbumId());
+		
+		newAlbum.setGenre(album.getGenre());
+		newAlbum.setArtist(album.getArtist());
+		newAlbum.setTitle(album.getTitle());
+		newAlbum.setPrice(album.getPrice());
+		newAlbum.setAlbumArtUrl(album.getAlbumArtUrl());
+		
+		em.merge(newAlbum);
+	}
 }
