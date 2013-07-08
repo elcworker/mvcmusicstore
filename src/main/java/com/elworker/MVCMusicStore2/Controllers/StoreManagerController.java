@@ -184,4 +184,29 @@ public class StoreManagerController {
 		
 		return "redirect:";
 	}
+	
+	/**
+	 * Mapping delete album page
+	 * @param deleteAlbumId
+	 * @param model
+	 * @return
+	 */
+	
+	@RequestMapping(value="/DeleteAlbum", method=RequestMethod.GET)
+	public String getDeleteAlbumPage(@RequestParam("deleteAlbumId") Integer deleteAlbumId, ModelMap model) {
+		
+		Album deleteAlbum = albumModel.findAlbumById(deleteAlbumId);
+		
+		model.addAttribute("deleteAlbum", deleteAlbum);
+		
+		return "DeleteAlbum";
+	}
+	
+	@RequestMapping(value="/DeleteAlbum", method=RequestMethod.POST)
+	public String setDeleteAlbumPage(@RequestParam("deleteAlbumId") Integer deleteAlbumId){
+		
+		albumModel.deleteAlbumById(deleteAlbumId);
+		
+		return "redirect:";
+	}
 }

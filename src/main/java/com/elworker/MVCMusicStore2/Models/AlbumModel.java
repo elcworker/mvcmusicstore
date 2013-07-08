@@ -21,10 +21,20 @@ public class AlbumModel {
 	@PersistenceContext
 	private EntityManager em;
 	
+	/**
+	 * persist new created Album
+	 * @param album
+	 */
+	
 	@Transactional
 	public void create(Album album) {
 		em.persist(album);
 	}
+	
+	/**
+	 * retrieve all albums at List
+	 * @return
+	 */
 	
 	public List<Album> findAllAlbums() {
 		
@@ -41,6 +51,12 @@ public class AlbumModel {
 		return albumList;
 	}
 	
+	/**
+	 * retrieve Album when known its ID
+	 * @param passid
+	 * @return
+	 */
+	
 	public Album findAlbumById(int passid){
 		
 		Query q = em.createNamedQuery("Album.findAlbumById");
@@ -48,6 +64,11 @@ public class AlbumModel {
 		
 		return (Album) q.getSingleResult();
 	}
+	
+	/**
+	 * store edited Album
+	 * @param album
+	 */
 	
 	@Transactional
 	public void edit(Album album) {
@@ -60,6 +81,18 @@ public class AlbumModel {
 		newAlbum.setAlbumArtUrl(album.getAlbumArtUrl());
 		
 		em.merge(newAlbum);
+	}
+	
+	/**
+	 * delete from DB an Album when known its ID
+	 * @param albumId
+	 */
+	
+	@Transactional
+	public void deleteAlbumById(Integer albumId) {
+		Album deleteAlbum = findAlbumById(albumId);
+		
+		em.remove(deleteAlbum);
 	}
 	
 }
