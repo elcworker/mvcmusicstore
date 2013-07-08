@@ -39,7 +39,7 @@ public class ArtistModel {
 		
 	}
 	
-	public Artist findGenreById(int passId){
+	public Artist findArtistById(int passId){
 		List<Artist> artistList = new ArrayList<Artist>();
 		
 		try{

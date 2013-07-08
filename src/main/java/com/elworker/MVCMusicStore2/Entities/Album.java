@@ -3,6 +3,7 @@ package com.elworker.MVCMusicStore2.Entities;
 import javax.persistence.Entity;
 import javax.persistence.Column;
 import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -17,6 +18,7 @@ import javax.persistence.NamedQuery;
 public class Album {
 	
 	@Id
+	@GeneratedValue
 	@Column(name="ALBUM_ID")
 	private Integer albumId;
 	private String title;

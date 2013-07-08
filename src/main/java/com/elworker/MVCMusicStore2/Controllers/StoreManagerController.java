@@ -72,6 +72,13 @@ public class StoreManagerController {
 		
 	}
 	
+	/**
+	 * Mapping edit album page for method GET
+	 * @param editAlbumId
+	 * @param model
+	 * @return
+	 */
+	
 	@RequestMapping(value="/EditAlbum", method=RequestMethod.GET)
 	public String getEditAlbumPage(@RequestParam("editAlbumId") Integer editAlbumId, ModelMap model) {
 		
@@ -91,6 +98,18 @@ public class StoreManagerController {
 		return "EditAlbum";
 	}
 	
+	/**
+	 * Mapping edit album page for method POST
+	 * @param albumarturl
+	 * @param price
+	 * @param txtTitle
+	 * @param genreSelected
+	 * @param artistSelected
+	 * @param editAlbumId
+	 * @param editAlbum
+	 * @return
+	 */
+	
 	@RequestMapping(value="/EditAlbum", method=RequestMethod.POST)
 	public String setEditAlbumPage(@RequestParam("albumArtUrl") String albumarturl, @RequestParam("price") String price, @RequestParam("title") String txtTitle, 
 			         			   @RequestParam("genreSelected") Integer genreSelected, @RequestParam("artistSelected") Integer artistSelected, 
@@ -103,7 +122,7 @@ public class StoreManagerController {
 		myAlbum.setGenre(newGenre);
 		
 		myAlbum.setTitle(txtTitle);
-		Artist newArtist = artistModel.findGenreById(artistSelected);
+		Artist newArtist = artistModel.findArtistById(artistSelected);
 		
 		myAlbum.setArtist(newArtist);
 		
@@ -112,6 +131,56 @@ public class StoreManagerController {
 		myAlbum.setAlbumArtUrl(albumarturl);
 		
 		albumModel.edit(myAlbum);
+		
+		return "redirect:";
+	}
+	
+	/**
+	 * Mapping Create Album page for method GET
+	 * @param editAlbumId
+	 * @param model
+	 * @return
+	 */
+	
+	@RequestMapping(value="/CreateAlbum", method=RequestMethod.GET)
+	public String getCreateAlbumPage(ModelMap model) {
+		
+		Album newAlbum = new Album();
+		
+		List<Genre> genreList = genreModel.findAllGenres();
+		List<Artist> artistList = artistModel.findAllArtists();
+		
+		model.addAttribute("genres", genreList);
+		model.addAttribute("artists", artistList);
+		
+		model.addAttribute("createAlbum", newAlbum);
+		
+		return "CreateAlbum";
+	}
+	
+	/**
+	 * Mapping Create Album page for method POST
+	 * @param albumarturl
+	 * @param price
+	 * @param txtTitle
+	 * @param genreSelected
+	 * @param artistSelected
+	 * @param editAlbumId
+	 * @param editAlbum
+	 * @return
+	 */
+	
+	@RequestMapping(value="/CreateAlbum", method=RequestMethod.POST)
+	public String setCreateAlbumPage(@RequestParam("genreSelected") Integer genreSelected, @RequestParam("artistSelected") Integer artistSelected,
+									@ModelAttribute("createAlbum") Album createAlbum) {
+		
+		Genre createGenre = genreModel.findGenreById(genreSelected);
+		Artist createArtist = artistModel.findArtistById(artistSelected);
+		
+		createAlbum.setGenre(createGenre);
+		createAlbum.setArtist(createArtist);
+		
+		albumModel.create(createAlbum);
 		
 		return "redirect:";
 	}
