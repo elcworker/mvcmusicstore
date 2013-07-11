@@ -46,9 +46,9 @@ public class StoreManagerController {
 		
 		//Logger.debug("Just got Store Manager page");
 		
-		List<Album> albumList = albumModel.findAllAlbums();
+		//List<Album> albumList = albumModel.findAllAlbums();
 		
-		model.put("albumList", albumList);
+		//model.put("albumList", albumList);
 		
 		return new ModelAndView("StoreManager", "albumModel", albumModel);
 	}

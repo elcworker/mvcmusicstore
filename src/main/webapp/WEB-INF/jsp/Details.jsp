@@ -19,7 +19,6 @@
 			<li><a href="/MVCMusicStore2/spring/Store/">Store</a></li>
 		</ul>
 	</div>
-	<form:form modelAttribute="addedAlbum" method="POST" commandName="addedAlbum" action="/MVCMusicstore/spring/Store/Details?albumId=${addedAlbum.albumId}">
 		<h1><c:out value="${detailedAlbum.title}" /></h1>
 		
 		<img alt="Album art of album: ${detailedAlbum.title}" src="../Images/placeholder.gif"></img><br/><br/>
@@ -28,8 +27,7 @@
 		<h2><c:out value="Artist: ${detailedAlbum.artist.name}" /></h2>
 		<h2><c:out value="Price: ${detailedAlbum.price}" /></h2>
 		
-		<input type="submit" value="Add to Cart" />		
-	</form:form>
+		<a href="/MVCMusicStore2/spring/ShoppingCart?addedAlbumId=${albumId}">Add to Cart</a>		
 	
 </body>
 </html>
