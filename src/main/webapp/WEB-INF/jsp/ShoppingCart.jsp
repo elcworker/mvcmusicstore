@@ -21,7 +21,7 @@
 	</div>
 
 	<h2>Review your cart :</h2>
-	<a href="LoginPage">Checkout >></a>
+	<a href="/MVCMusicStore2/spring/Account/login">Checkout >></a>
 	<div style="height:20px"></div>
 	<table>
 		<thead>
