@@ -6,10 +6,14 @@ import java.util.Date;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
 @Entity
+@Table(name="ORDERS")
 public class Order {
 	
 	@Id
@@ -17,17 +21,19 @@ public class Order {
 	private Integer orderId;
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date orderDate;
-	private String userName;
 	private String firstName;
 	private String lastName;
 	private String address;
-	private String sity;
+	private String city;
 	private String state;
 	private String postalCode;
 	private String country;
 	private String phone;
 	private String email;
 	private Double total;
+	@ManyToOne
+	@JoinColumn(name="USER_ID")
+	private User user;
 	//private Collection<OrderDetail> orderDetails;
 
 	public Order(){
@@ -38,20 +44,16 @@ public class Order {
 		return orderId;
 	}
 	
+	public void setOrderId(Integer orderId){
+		this.orderId=orderId;
+	}
+	
 	public Date getOrderDate(){
 		return orderDate;
 	}
 	
 	public void setOrderDate(Date orderDate){
 		this.orderDate = orderDate;
-	}
-	
-	public String getUserName(){
-		return userName;
-	}
-	
-	public void setUserName(String userName){
-		this.userName = userName;
 	}
 	
 	public String getFirstName(){
@@ -78,12 +80,12 @@ public class Order {
 		this.address = address;
 	}
 
-	public String getSity() {
-		return sity;
+	public String getCity() {
+		return city;
 	}
 
-	public void setSity(String sity) {
-		this.sity = sity;
+	public void setCity(String city) {
+		this.city = city;
 	}
 
 	public String getState() {
@@ -132,6 +134,14 @@ public class Order {
 
 	public void setTotal(Double total) {
 		this.total = total;
+	}
+	
+	public User getUser(){
+		return user;
+	}
+	
+	public void setUser(User user){
+		this.user = user;
 	}
 /*
 	public Collection<OrderDetail> getOrderDetails() {

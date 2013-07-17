@@ -22,7 +22,7 @@
 	
 	<form:form modelAttribute="loginUser" method="POST">
 	<h2>Log On</h2>
-	<h3>Please enter your username and password.<a href="/MVCMusicStore2/spring/addUser">Register</a>if you don't have any account</h3>
+	<h3>Please enter your username and password.<a href="/MVCMusicStore2/spring/AddUser">Register</a>if you don't have any account</h3>
 	<fieldset>
 		<legend>Account Information</legend>
 		

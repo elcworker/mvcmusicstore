@@ -4,17 +4,15 @@ import java.util.List;
 
 import javax.annotation.Resource;
 
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
 import com.elworker.MVCMusicStore2.Dao.UserDao;
 import com.elworker.MVCMusicStore2.Entities.User;
 
-@Component
-@Service("UserService")
+@Service
 public class UserService {
 	
-	@Resource(name = "UserDao")
+	@Resource
 	UserDao userDao;
 	
 	public boolean verifyUser(User user){
@@ -31,5 +29,12 @@ public class UserService {
 		
 		return result;
 	}
-
+	
+	public boolean isUserExist(User user){
+		if(userDao.findUsersByName(user.getUserName()).isEmpty())
+			return false;
+		else
+			return true;
+	}
+	
 }

@@ -7,13 +7,11 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
-import org.springframework.stereotype.Component;
-import org.springframework.stereotype.Service;
+import org.springframework.stereotype.Repository;
 
 import com.elworker.MVCMusicStore2.Entities.User;
 
-@Component
-@Service("UserDao")
+@Repository
 public class UserDao {
 	
 	@PersistenceContext

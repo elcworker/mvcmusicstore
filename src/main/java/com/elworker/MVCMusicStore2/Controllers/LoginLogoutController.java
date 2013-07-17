@@ -15,7 +15,7 @@ import com.elworker.MVCMusicStore2.Services.UserService;
 @RequestMapping("/Account")
 public class LoginLogoutController {
 	
-	@Resource(name="UserService")
+	@Resource
 	UserService userService;
 	
 	@RequestMapping(value="/login", method=RequestMethod.GET)
