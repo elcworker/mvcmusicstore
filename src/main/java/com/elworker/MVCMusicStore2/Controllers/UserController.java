@@ -4,12 +4,10 @@ import javax.annotation.Resource;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 
-import com.elworker.MVCMusicStore2.Entities.Order;
-import com.elworker.MVCMusicStore2.Entities.User;
 import com.elworker.MVCMusicStore2.Services.OrderService;
 
 @Controller
@@ -19,37 +17,18 @@ public class UserController {
 	OrderService orderService;
 	
 	@RequestMapping(value="/AddUser", method=RequestMethod.GET)
-	public String getAddUserPage(){
+	public String getAddUserPage(ModelMap model){
+		
+		RegistrationForm registrationForm = new RegistrationForm();
+		
+		model.addAttribute("registrationForm", registrationForm);
 		return "addUser";
 	}
 	
 	@RequestMapping(value="/AddUser", method=RequestMethod.POST)
-	public String postAddUserPage(ModelMap model, @RequestParam("loginName") String loginName, @RequestParam("password") String password,
-												  @RequestParam("firstName") String firstName, @RequestParam("lastName") String lastName,
-												  @RequestParam("address") String address, @RequestParam("city") String city,
-												  @RequestParam("state") String state, @RequestParam("postalCode") String postalCode,
-												  @RequestParam("country") String country, @RequestParam("phone") String phone,
-												  @RequestParam("emailAddress") String emailAddress){
+	public String postAddUserPage(@ModelAttribute("registrationForm") RegistrationForm registrationForm, ModelMap model){
 		
-		User registerUser = new User();
-		
-		registerUser.setUserName(loginName);
-		registerUser.setUserPassword(password);
-		
-		Order registerOrder = new Order();
-		
-		registerOrder.setFirstName(firstName);
-		registerOrder.setLastName(lastName);
-		registerOrder.setAddress(address);
-		registerOrder.setCity(city);
-		registerOrder.setState(state);
-		registerOrder.setPostalCode(postalCode);
-		registerOrder.setCountry(country);
-		registerOrder.setPhone(phone);
-		registerOrder.setEmail(emailAddress);
-		registerOrder.setUser(registerUser);
-		
-		String errorMessage = orderService.tryAddOrder(registerOrder).getResult();
+		String errorMessage = orderService.tryAddOrder(registrationForm.getUser(), registrationForm.getOrder()).getLoginNameErrorMessage();
 		
 		if(errorMessage == null){
 			return "redirect:Store/";
@@ -58,8 +37,5 @@ public class UserController {
 			model.addAttribute("error", errorMessage);
 			return "addUser";
 		}
-		
-		
 	}
-	
 }

@@ -30,7 +30,40 @@ public class UserService {
 		return result;
 	}
 	
-	public boolean isUserExist(User user){
+	public ResultObject tryAddUser(User user){
+		
+		ResultObjectImpl resultObject = new ResultObjectImpl();
+		
+		if(isUserExist(user))
+			resultObject.setLoginNameErrorMessage("User with this name alrady exist. Try another one.");
+		else
+			userDao.create(user);
+		
+		return resultObject;
+		}
+	
+	public interface ResultObject{
+		String getLoginNameErrorMessage();
+	}
+	
+	private class ResultObjectImpl implements ResultObject{
+		
+		private String loginNameErrorMessage=null;
+		
+		public void setLoginNameErrorMessage(String loginNameErrorMessage){
+			
+			this.loginNameErrorMessage=loginNameErrorMessage;
+			
+		}
+		
+		public String getLoginNameErrorMessage(){
+			
+			return loginNameErrorMessage;
+			
+		}
+	}
+	
+	private boolean isUserExist(User user){
 		if(userDao.findUsersByName(user.getUserName()).isEmpty())
 			return false;
 		else

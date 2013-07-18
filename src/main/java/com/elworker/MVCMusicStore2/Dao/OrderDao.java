@@ -16,7 +16,6 @@ public class OrderDao {
 	
 	@Transactional
 	public void create(Order order){
-		em.persist(order.getUser());
 		em.persist(order);
 	}
 

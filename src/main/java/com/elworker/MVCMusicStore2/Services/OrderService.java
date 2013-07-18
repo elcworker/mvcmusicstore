@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 
 import com.elworker.MVCMusicStore2.Dao.OrderDao;
 import com.elworker.MVCMusicStore2.Entities.Order;
+import com.elworker.MVCMusicStore2.Entities.User;
 
 @Service
 public class OrderService {
@@ -16,29 +17,35 @@ public class OrderService {
 	@Resource
 	OrderDao orderDao;
 	
-	public ResultObject tryAddOrder(Order order){
+	public ResultObject tryAddOrder(User user, Order order){
 		
-		String errorMessage = null;
+		String loginNameErrorMessage = userService.tryAddUser(user).getLoginNameErrorMessage();
 		
-		if(userService.isUserExist(order.getUser())){
-			errorMessage = "User with this name alrady exist. Please try anouther name.";
-		}
-		else{
+		ResultObjectImpl resultObject = new ResultObjectImpl();
+		
+		resultObject.setLoginNameErrorMessage(loginNameErrorMessage);
+		
+		if(loginNameErrorMessage == null){
+			order.setUser(user);
 			orderDao.create(order);
 		}
-		return new ResultObject(errorMessage);
+		return resultObject;
+	}
+
+	public interface ResultObject{
+		String getLoginNameErrorMessage();
 	}
 	
-	public class ResultObject{
+	private class ResultObjectImpl implements ResultObject{
 	
-		private String errorMessage;
+		private String loginNameErrorMessage;
 	
-		public ResultObject(String errorMessage){
-			this.errorMessage = errorMessage;
+		public void setLoginNameErrorMessage(String loginNameErrorMessage){
+			this.loginNameErrorMessage=loginNameErrorMessage;
 		}
-	
-		public String getResult(){
-			return errorMessage;
+		
+		public String getLoginNameErrorMessage(){
+			return loginNameErrorMessage;
 		}
 	}
 }

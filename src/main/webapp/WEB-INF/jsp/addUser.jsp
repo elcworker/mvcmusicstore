@@ -1,3 +1,5 @@
+<%@ taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
+
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
@@ -11,48 +13,48 @@
 	<%@ include file="includes/header.jsp" %>
 	
 	<div id="login-error">${error}</div>
-	<form method="POST">
+	<form:form modelAttribute="registrationForm" method="POST">
 		<fieldset>
 			<legend>Login information</legend>
 			<label>Username:</label><br />
-			<input type="text" name="loginName"/><br /> <br />
+			<form:input path="user.userName" /><br /> <br />
 			
 			<label>Password:</label><br />
-			<input type="password" name="password"><br /> <br />
+			<form:password path="user.userPassword" /><br /> <br />
 		</fieldset>
 	
 		<fieldset>
 			<legend>Shipping information</legend>
 			
 			<label>First name:</label><br />
-			<input type="text" name="firstName"><br /><br />
+			<form:input path="order.firstName" /><br /><br />
 			
-			<label>Second name:</label><br />
-			<input type="text" name="lastName"><br /><br />
+			<label>Last name:</label><br />
+			<form:input path="order.lastName" /><br /><br />
 			
 			<label>Address:</label><br />
-			<input type="text" name="address"><br /><br />
+			<form:input path="order.address" /><br /><br />
 			
 			<label>City:</label><br />
-			<input type="text" name="city"><br /><br />
+			<form:input path="order.city" /><br /><br />
 			
 			<label>State:</label><br />
-			<input type="text" name="state"><br /><br />
+			<form:input path="order.state" /><br /><br />
 			
 			<label>Postal Code:</label><br />
-			<input type="text" name="postalCode"><br /><br />
+			<form:input path="order.postalCode" /><br /><br />
 			
 			<label>Country:</label><br />
-			<input type="text" name="country"><br /><br />
+			<form:input path="order.country" /><br /><br />
 			
 			<label>Phone:</label><br />
-			<input type="text" name="phone"><br /><br />
+			<form:input path="order.phone" /><br /><br />
 			
 			<label>Email Address:</label><br />
-			<input type="text" name="emailAddress"><br /><br />	
+			<form:input path="order.email" /><br /><br />	
 		</fieldset>
 	
 		<input type="submit" value="Create">
-	</form>
+	</form:form>
 </body>
 </html>

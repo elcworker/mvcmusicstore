@@ -8,6 +8,7 @@ import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.elworker.MVCMusicStore2.Entities.User;
 
@@ -33,5 +34,9 @@ public class UserDao {
 		
 		return userList;
 	}
-
+	
+	@Transactional
+	public void create(User user){
+		em.persist(user);
+	}
 }
