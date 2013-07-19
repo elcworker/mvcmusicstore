@@ -17,11 +17,8 @@ public class UserController {
 	OrderService orderService;
 	
 	@RequestMapping(value="/AddUser", method=RequestMethod.GET)
-	public String getAddUserPage(ModelMap model){
+	public String getAddUserPage(@ModelAttribute("registrationForm") RegistrationForm registrationForm, ModelMap model){
 		
-		RegistrationForm registrationForm = new RegistrationForm();
-		
-		model.addAttribute("registrationForm", registrationForm);
 		return "addUser";
 	}
 	
