@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans-3.0.xsd">
+
+	<bean id="mockGenreService" class="com.elworker.MVCMusicStore2.Services.MockGenreService">
+		<property name="genreList">
+			<list>
+				<bean class="com.elworker.MVCMusicStore2.Entities.Genre">
+					<property name="genreId" value="0" />
+					<property name="name" value="Genre1" />
+				</bean>
+			
+				<bean class="com.elworker.MVCMusicStore2.Entities.Genre">
+					<property name="genreId" value="1" />
+					<property name="name" value="Genre2" />
+				</bean>
+				
+				<bean class="com.elworker.MVCMusicStore2.Entities.Genre">
+					<property name="genreId" value="2" />
+					<property name="name" value="Genre3" />
+				</bean>
+				
+				<bean class="com.elworker.MVCMusicStore2.Entities.Genre">
+					<property name="genreId" value="3" />
+					<property name="name" value="Genre4" />
+				</bean>
+				
+				<bean class="com.elworker.MVCMusicStore2.Entities.Genre">
+					<property name="genreId" value="4" />
+					<property name="name" value="Genre5" />
+				</bean>
+				
+				<bean class="com.elworker.MVCMusicStore2.Entities.Genre">
+					<property name="genreId" value="5" />
+					<property name="name" value="Genre6" />
+				</bean>
+			</list>
+		</property>
+	</bean>
+	
+</beans>

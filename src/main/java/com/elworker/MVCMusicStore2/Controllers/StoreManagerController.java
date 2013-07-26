@@ -29,7 +29,7 @@ public class StoreManagerController {
 	@Resource(name="albumService")
 	AlbumModel albumModel;
 	
-	@Resource(name="genreService")
+	@Resource(name="genreModel")
 	GenreModel genreModel;
 	
 	@Resource(name="artistService")

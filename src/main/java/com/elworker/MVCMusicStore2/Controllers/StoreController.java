@@ -14,21 +14,25 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.elworker.MVCMusicStore2.Entities.Album;
 import com.elworker.MVCMusicStore2.Entities.Genre;
 import com.elworker.MVCMusicStore2.Models.AlbumModel;
-import com.elworker.MVCMusicStore2.Models.GenreModel;
+//import com.elworker.MVCMusicStore2.Models.GenreModel;
+import com.elworker.MVCMusicStore2.Services.GenreService;
 
 @Controller
 @RequestMapping("/Store")
 public class StoreController {
 	
-	@Resource(name="genreService")
-	private GenreModel genreModel;
+	//@Resource(name="genreModel")
+	//private GenreModel genreModel;
+	
+	@Resource(name="defaultGenreService")
+	private GenreService genreService;
 	
 	@Resource(name="albumService")
 	private AlbumModel albumModel;
 
 	@RequestMapping(value="/", method=RequestMethod.GET)
 	public String getStoreIndexPage(ModelMap model) {
-		List<Genre> myGenreList = genreModel.findAllGenres();
+		List<Genre> myGenreList = genreService.getAllGenres();
 		
 		model.put("genreList", myGenreList);
 		model.put("genreCount", myGenreList.size());

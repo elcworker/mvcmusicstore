@@ -46,6 +46,5 @@ public class LoginLogoutController {
 		
 		return destination;
 	}
-	
 
 }

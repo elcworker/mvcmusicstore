@@ -13,8 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.elworker.MVCMusicStore2.Entities.Genre;
 
-@Component
-@Service("genreService")
+@Service
 public class GenreModel {
 	
 	@PersistenceContext
